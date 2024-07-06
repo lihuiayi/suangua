@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <!-- 头部 -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>赛博道士</title>
+        <!-- 美化主体 -->
+        <style>
+            body{ background-color: #0e0d0d; color: #fff; font-family: 'Courier New', monospace; }
+            h1{ text-align: center; font-size: 90px; margin-top: 50px; color: #4196db; text-shadow: 0 0 5px rgb(245, 245, 241), 0 0 10px rgb(238, 238, 236), 0 0 15px rgb(247, 243, 243), 0 0 20px rgb(241, 237, 239); }
+            #result {position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-size: 150px; text-align: center; color: rgba(255, 0, 21, 0.479); text-shadow: 0 0 5px rgba(255, 0, 21, 0.479), 0 0 10px rgba(255, 0, 21, 0.479), 0 0 15px rgba(255, 0, 21, 0.479), 0 0 20px rgba(255, 0, 21, 0.479); }
+            #startButton,#stopButton,#explainButton{ position: fixed; bottom: 10px; background-color: rgb(110, 122, 226); border: none; color:rgb(110, 122, 226); padding: 10px 20px; font-size: 30px; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 5px rgb(110, 122, 226), 0 0 10px rgb(110, 122, 226), 0 0 15px rgb(110, 122, 226), 0 0 20px rgb(110, 122, 226); }
+            #startButton{left: 43%;transform: translateX(-50%);color: #f5f0f0;}
+            #stopButton{left: 50%;transform: translateX(-50%);color: #f5f0f0;}
+            #explainButton{right: 43%;transform: translateX(50%);color: #f5f0f0;}
+        </style>
+    </head>
+
+<body>
+    <h1>
+        算卦算卦，免费算卦
+    </h1>
+    <!-- 随机算卦部分 -->
+    <p id="result"></p>
+        <!-- 按钮 -->
+        <button id="startButton">抽签</button>
+        <button id="stopButton" disabled>停止</button>
+        <button id="explainButton">解卦</button>
+
+    <!-- JavaScript代码 -->
+    <script>
+        var names = ["乾卦","坤卦","屯卦","蒙卦","需卦",
+                    "讼卦","师卦","比卦","小畜卦","履卦",
+                    "泰卦","否卦","同人卦","大有卦","谦卦",
+                    "豫卦","随卦","蛊卦","临卦","观卦",
+                    "噬嗑卦","贲卦","剥卦","复卦","无妄卦",
+                    "大畜卦","颐卦","大过卦","坎卦","离卦",
+                    "咸卦","恒卦","遁卦","大壮卦","晋卦",
+                    "明夷卦","家人卦","睽卦","蹇卦","解卦",
+                    "损卦","益卦","夬卦","姤卦","萃卦",
+                    "升卦","困卦","井卦","革卦","鼎卦",
+                    "震卦","艮卦","渐卦","归妹卦","丰卦",
+                    "旅卦","巽卦","兑卦","涣卦","节卦",
+                    "中孚卦","小过卦","既济卦","未济卦"];
+        var currentIndex = 0;
+        var interval;
+
+        function startRolling() {
+            interval = setInterval(() => {
+                currentIndex = Math.floor(Math.random() * names.length);
+                document.getElementById("result").innerHTML = names[currentIndex];
+            }, 10);
+            document.getElementById("startButton").disabled = true;
+            document.getElementById("stopButton").disabled = false;
+        }
+
+        function stopRolling() {
+            clearInterval(interval);
+            document.getElementById("startButton").disabled = false;
+            document.getElementById("stopButton").disabled = true;
+        }
+
+        function showExplanation() {
+            var currentName = document.getElementById("result").innerHTML;
+            var explanationUrl = "解卦内容.html?guaname=" + encodeURIComponent(currentName);
+            window.open(explanationUrl, "_blank");       
+        }
+
+        document.getElementById("startButton").addEventListener("click", startRolling);
+        document.getElementById("stopButton").addEventListener("click", stopRolling);
+        document.getElementById("explainButton").addEventListener("click", showExplanation);
+    </script>
+</body>
+</html>
